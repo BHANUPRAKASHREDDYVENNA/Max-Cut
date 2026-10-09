@@ -1,0 +1,1 @@
+{"name":"illustrative_5_vertex_weighted_maxcut","status":"participant_defined_illustrative","nodes":[0,1,2,3,4],"edges":[[0,1,1.0],[1,2,1.0],[2,3,1.0],[3,4,1.0],[0,4,1.0],[0,2,1.0],[1,3,1.0]],"num_qubits":5,"note":"Replace with organizer-supplied O1 instance when available."}
