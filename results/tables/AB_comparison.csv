@@ -1,0 +1,3 @@
+processor,noisy_expected_cut,approximation_ratio,optimal_cut_probability,standard_error,shots,swaps,two_qubit_ops,depth_proxy,physical_qubits,proxy_bitflip_probability,classical_optimum,gamma,beta,optimal_cut_bits
+processor_A_illustrative,4.4945,0.7490833333333334,0.2225,0.0065763544,4000,0,7,14,5,0.0139719438,6.0,0.6283185307,0.3141592654,01101
+processor_B_illustrative,4.39075,0.7317916666666666,0.21325,0.0064763886,4000,5,22,34,5,0.0432579631,6.0,0.6283185307,0.3141592654,01101
