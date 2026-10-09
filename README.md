@@ -1,105 +1,54 @@
 # Qiskit Fall Fest 2026 — Phase 1
-## O1: Max-Cut (Backup)
+## O1 — Max-Cut
 
-This is a **separate backup project** for **O1 — Max-Cut** under the Quantum Optimization track. It follows the same Phase-1 architecture-aware workflow used in the primary S3 project, including the same illustrative Processor A/B definitions, noise proxies, reproducibility conventions, CI checks, AI disclosure and reporting style.
+Track: Quantum Optimization. Selected problem statement: O1 — Max-Cut. Phase 1 scope: Processor A vs Processor B only.
 
-## Important scope note
-The supplied official materials confirm O1 as **Max-Cut** and require an A/B comparison, problem-specific metric, architecture/resource metrics, reproducibility and evidence-based interpretation. They do not provide a complete Max-Cut graph instance in the materials used here. Therefore the graph instance in `data/o1_instance.json` is explicitly **participant-defined and reproducible**, not organizer-certified.
+### Scope and evidence
+The official Phase 1 materials establish O1 as Max-Cut and require one selected PS, a core solution, Processor A/B runs, problem/resource metrics, A/B comparison, reproducibility, graphs/tables, README/report, and environment specification. The public materials used here do not contain an O1-specific Challenge Kit graph instance, so the graph and processor/noise values in this repository are explicitly illustrative / participant-defined rather than official Challenge Kit values.
 
-The Processor A/B JSON files intentionally use the **same illustrative processor data and noise parameters as the S3 project** so that the backup changes the optimization problem while preserving the architecture baseline.
+Replace the illustrative inputs under data/ and processors/ with the organizer-supplied O1 kit before final submission.
 
-## Phase-1 workflow
-1. Select exactly one PS: **O1 — Max-Cut**.
-2. Define a transparent weighted graph instance.
-3. Compute an exact classical Max-Cut reference.
-4. Build a p=1 QAOA statevector model.
-5. Route the same logical cost interactions onto Processor A and Processor B.
-6. Apply the same illustrative noise proxies used in the S3 baseline.
-7. Measure noisy expected cut, approximation ratio, optimal-cut probability and uncertainty.
-8. Compare depth, two-qubit operations, SWAPs and physical qubits.
-9. Explain architecture effects using measured evidence.
-10. Stop at Processor A/B; no Phase-2 processor work is included.
+### Method
+A p=1 QAOA-style statevector is used for a fixed five-node weighted Max-Cut graph. A brute-force search gives the exact classical optimum. The same logical edges are routed against two processor topologies. We record expected cut, approximation ratio, optimal-cut probability, standard error, SWAPs, two-qubit operations, depth proxy, and physical qubits.
 
-## Repository structure
-```text
-QFF2026_O1_MaxCut_Phase1_Project/
-├── README.md
-├── main.ipynb
-├── requirements.txt
-├── requirements-practice.txt
-├── data/
-│  ├── raw/o1_instance.json
-│  ├── processed/
-│  ├── o1_instance.json
-│  ├── practice_config.json
-│  └── guide_settings.json
-├── processors/
-│  ├── processor_A.json
-│  └── processor_B.json
-├── src/
-│  ├── problem.py
-│  ├── processors.py
-│  ├── routing.py
-│  ├── metrics.py
-│  ├── qaoa.py
-│  ├── benchmark.py
-│  └── visualization.py
-├── scripts/
-│  ├── build_notebook.py
-│  ├── run_benchmark.py
-│  ├── make_figures.py
-│  └── validate_submission.py
-├── results/
-│  ├── tables/AB_comparison.csv
-│  └── figures/
-├── report/report.md
-├── docs/
-├── tests/
-└── .github/workflows/ci.yml
-```
+### Illustrative A/B result
+| Metric | Processor A | Processor B |
+|---|---:|---:|
+| Classical optimum | 6.00 | 6.00 |
+| Noisy expected cut | 4.4945 | 4.3908 |
+| Approximation ratio | 0.7491 | 0.7318 |
+| Optimal-cut probability | 0.2225 | 0.2133 |
+| SWAPs | 0 | 5 |
+| Two-qubit operations | 7 | 22 |
+| Depth proxy | 14 | 34 |
 
-## Installation
-```bash
-python -m venv .venv
-# Windows
-.\.venv\Scripts\Activate.ps1
-# Linux/macOS
-source .venv/bin/activate
-pip install -r requirements.txt
-```
-For the lightweight deterministic benchmark:
-```bash
-pip install -r requirements-practice.txt
-```
+Processor B's line topology requires multi-hop routing for several logical edges, increasing the two-qubit workload and the illustrative noise proxy. These are demonstrator results, not calibrated hardware measurements.
 
-## Run
-```bash
-python scripts/run_benchmark.py
-pytest -q
-python scripts/validate_submission.py
-```
+### Run
+    python -m pip install -r requirements-practice.txt
+    python scripts/run_benchmark.py
+    pytest -q
+    python scripts/validate_submission.py
 
-## Metrics
-Problem-specific:
-- exact classical optimum
-- ideal QAOA expected cut
-- noisy expected cut
-- approximation ratio
-- probability of sampling an optimal cut
-- standard error
+The full requirements.txt includes Qiskit and Qiskit Aer for circuit-level experimentation.
 
-Architecture/resource:
-- logical edges
-- two-qubit operations
-- SWAP count
-- depth proxy
-- physical qubits
+### Repository
+README.md
+main.py
+requirements.txt
+requirements-practice.txt
+data/
+processors/
+src/
+scripts/
+results/
+report/
+docs/
+tests/
+.github/workflows/ci.yml
 
-## Interpretation framework
-The analysis answers: What changed? What routing was introduced? How much extra two-qubit work appeared? Did the noisy Max-Cut objective change? Which conclusions are tied to topology, and which depend on the illustrative noise proxy?
+### Phase 1 boundary
+Processor C and custom Processor D are excluded because they are Phase 2.
 
-## AI disclosure
-AI-assisted development was used. The submitting team must verify all code and numerical results and disclose assistance according to the official competition policy.
-
-## Limitations
-This backup is not a claim of official O1 benchmark data. The graph instance is participant-defined because no organizer-provided Max-Cut instance was supplied in the materials available for this project. Processor definitions and noise proxies are illustrative comparators inherited from the S3 project baseline.
+### AI disclosure
+AI assistance was used for drafting and code structuring. The project owner remains responsible for verification, understanding, reproducibility, and compliance with the organizer's AI-use policy.
