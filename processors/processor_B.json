@@ -1,0 +1,1 @@
+{"name":"processor_B_illustrative","status":"illustrative_not_official","num_qubits":5,"coupling_map":[[0,1],[1,2],[2,3],[3,4]],"basis_gates":["rz","sx","x","cx"],"noise":{"single_qubit_error":0.001,"two_qubit_error":0.01,"readout_error":0.01}}
